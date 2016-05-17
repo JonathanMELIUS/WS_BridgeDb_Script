@@ -19,14 +19,14 @@ public class ClientPostCall {
 			ResourceException {
 		// TODO Auto-generated method stub
 
-		// ClientResource res = new
-		// ClientResource("http://localhost:8183/batch/Human/xrefs/L");
+		// ClientResource res = new ClientResource
+//			("http://localhost:8183/batch/Human/xrefs/L");
 		
-		ClientResource res = new ClientResource(
-				"http://localhost:8183/batch/Mouse/xrefs/En");
+//		ClientResource res = new ClientResource
+//				("http://localhost:8183/batch/Mouse/xrefs/En");
 		
-		// ClientResource res = new
-		// ClientResource("http://webservice.bridgedb.org:8185/batch/Mouse/xrefs/En");
+		 ClientResource res = new ClientResource
+				 ("http://webservice.bridgedb.org:8185/batch/Mouse/xrefs/En");
 
 		String ids = fromResource();
 		
@@ -37,13 +37,13 @@ public class ClientPostCall {
 		// + "ENSMUSG00000068732\n"
 		// + "ENSMUSG00000025102\n"
 		// + "ENSMUSG00000059934\n"
-		// + "ENSMUSG00000095832\n"
+		// + "ENSMUSG00000095832\n"unique
 		// + "ENSMUSG00000019214\n"
 		// + "ENSMUSG00000063455\n"
 		// + "ENSMUSG00000073823\n"
 		// + "ENSMUSG00000037031";
 
-		postCall(res, ids, true);
+		postCall(res, ids, false);
 	}
 
 	public static String fromResource() throws IOException {
@@ -78,17 +78,25 @@ public class ClientPostCall {
 
 	}
 
+	/**
+	 * @param res - Query address
+	 * @param ids - String of all ids separated with line breaker
+	 * @param p - Boolean, true print the result
+	 * @throws IOException
+	 */
 	public static void postCall(ClientResource res, String ids, boolean p)
 			throws IOException {
 		StringRepresentation s = new StringRepresentation(ids);
 
 		Date date = new Date();
 		Representation out = res.post(s);
-		if (p)
-			out.write(System.out);
 		System.out.println("Start:\t" + date);
 		Date date2 = new Date();
+		
+		if (p)
+			out.write(System.out);
 		System.out.println("End:\t" + date2);
+		
 
 		long duration = date2.getTime() - date.getTime();
 		long diffInMilis = TimeUnit.MILLISECONDS.toMillis(duration);
