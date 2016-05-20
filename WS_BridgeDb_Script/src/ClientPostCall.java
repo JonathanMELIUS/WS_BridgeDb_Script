@@ -23,34 +23,37 @@ public class ClientPostCall {
 //			("http://localhost:8183/batch/Human/xrefs/L");
 		
 //		ClientResource res = new ClientResource
-//				("http://localhost:8183/batch/Mouse/xrefs/En");
+//				("http://localhost:8183/batch/Mouse/xrefs/En?dataSource=L");
 		
-		 ClientResource res = new ClientResource
-				 ("http://webservice.bridgedb.org:8185/batch/Mouse/xrefs/En");
-
-		String ids = fromResource();
+		ClientResource res = new ClientResource
+				("http://localhost:8183/batch/Mouse/xrefs/En");
 		
-		// String ids =
-		// fromFile("/home/bigcat-jonathan/Desktop/Pratical/ENSEMBLIDs.txt");
+//		 ClientResource res = new ClientResource
+//				 ("http://webservice.bridgedb.org:8185/batch/Mouse/xrefs/En");
 
-		// String ids = "ENSMUSG00000035967\n"
-		// + "ENSMUSG00000068732\n"
-		// + "ENSMUSG00000025102\n"
-		// + "ENSMUSG00000059934\n"
-		// + "ENSMUSG00000095832\n"unique
-		// + "ENSMUSG00000019214\n"
-		// + "ENSMUSG00000063455\n"
-		// + "ENSMUSG00000073823\n"
-		// + "ENSMUSG00000037031";
+//		String ids = fromResource();
+		
+		 String ids =
+		 fromFile("/home/bigcat-jonathan/Desktop/Pratical/ENSEMBLIDs5.txt");
 
-		postCall(res, ids, false);
+//		 String ids = "ENSMUSG00000035967\n"
+//		 + "ENSMUSG00000068732\n"
+//		 + "ENSMUSG00000025102\n"
+//		 + "ENSMUSG00000059934\n"
+//		 + "ENSMUSG00000095832\n"
+//		 + "ENSMUSG00000019214\n"
+//		 + "ENSMUSG00000063455\n"
+//		 + "ENSMUSG00000073823\n"
+//		 + "ENSMUSG00000037031";
+
+		postCall(res, ids, true);
 	}
 
 	public static String fromResource() throws IOException {
 		String ids = "";
 		String line = "";
 		InputStream is = ClientPostCall.class.getClassLoader()
-				.getResourceAsStream("ENSEMBLIDs.txt");
+				.getResourceAsStream("ENSEMBLIDs4.txt");
 		BufferedReader br1 = new BufferedReader(new InputStreamReader(is));
 		ids = br1.readLine();
 		int i = 1;
@@ -87,9 +90,10 @@ public class ClientPostCall {
 	public static void postCall(ClientResource res, String ids, boolean p)
 			throws IOException {
 		StringRepresentation s = new StringRepresentation(ids);
-
+		System.out.println(s.getMediaType());
 		Date date = new Date();
 		Representation out = res.post(s);
+		System.out.println(out.toString());
 		System.out.println("Start:\t" + date);
 		Date date2 = new Date();
 		
